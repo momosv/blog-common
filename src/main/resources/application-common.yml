@@ -1,0 +1,4 @@
+mybatis-common:
+  mapper-locations: /common-mapper/*.xml
+  type-aliases-package: cn.momosv.blog.common.dao
+  config-location: classpath:/mybatis-config.xml
