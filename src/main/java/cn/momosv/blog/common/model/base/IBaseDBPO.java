@@ -18,7 +18,7 @@ public  abstract class IBaseDBPO implements Serializable, Cloneable{
 	 	return "id";
 	 };
 
-	abstract public String _getPKValue();
+	abstract public Object _getPKValue();
 
 	abstract public void _setPKValue(Object var);
 

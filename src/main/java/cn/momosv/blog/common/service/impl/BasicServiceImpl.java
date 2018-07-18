@@ -346,11 +346,11 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 					idmap =(Map<String, Object>)fmap.get(RegexUtils.humpToLine(fieldNames[i]));
 				}
 				
-			   idmap.put(t._getPKValue(), value);
+			   idmap.put((String) t._getPKValue(), value);
 			   fmap.put(RegexUtils.humpToLine(fieldNames[i]), idmap);
 				
 			}
-			_PKs[j++]=t._getPKValue();
+			_PKs[j++]= (String) t._getPKValue();
 		}
 		fmap.put("_PKs", _PKs);
 		return fmap;
