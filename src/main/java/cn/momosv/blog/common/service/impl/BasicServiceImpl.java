@@ -14,8 +14,10 @@ import cn.momosv.blog.common.model.base.IBaseDBPO;
 import cn.momosv.blog.common.service.BasicService;
 import cn.momosv.blog.common.dao.BasicMapper;
 import cn.momosv.blog.common.model.base.BasicExample;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -24,52 +26,49 @@ import java.util.List;
 import java.util.Map;
 
 
-public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> implements BasicService<T, E> {
+public class BasicServiceImpl implements BasicService {
  
-
+	@Resource
 	private BasicMapper basicMapper;
 
 	public void setMapper(BasicMapper basicMapper){
-		if (this.basicMapper != null) {
-			}
-
 		this.basicMapper = basicMapper;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findAll(Class<T> t) throws Exception {
+	public <T extends IBaseDBPO, E extends BasicExample> List<T> findAll(Class<T> t) throws Exception {
 		return this.selectByExample(t,(E) new BasicExample());
 	}
 
 	@Override
-	public int countByExample(E example) {
+	public<T extends IBaseDBPO, E extends BasicExample> int countByExample(E example) {
 		return basicMapper.countByExample(example);
 	}
 
 	@Override
-	public int deleteByExample(E example) {
+	public<T extends IBaseDBPO, E extends BasicExample> int deleteByExample(E example) {
 		return basicMapper.deleteByExample(example);
 	}
 
 	@Override
-	public int deleteByPrimaryKey(Class<T> clazz,List<String> id) throws InstantiationException, IllegalAccessException {
+	public<T extends IBaseDBPO, E extends BasicExample> int deleteByPrimaryKey(Class<T> clazz,List<String> id) throws InstantiationException, IllegalAccessException {
 		return this.deleteByPrimaryKey(clazz, id.toArray(new String[id.size()]));
 	}
 	@Override
-	public int deleteByPrimaryKey(Class<T> clazz,String[] id) throws IllegalAccessException, InstantiationException {
+	public<T extends IBaseDBPO, E extends BasicExample> int deleteByPrimaryKey(Class<T> clazz,String[] id) throws IllegalAccessException, InstantiationException {
 		T t=clazz.newInstance();
 		return basicMapper.deleteByPrimaryKey(id,t._getPKColumnName(),t._getTableName());
 	}
 
 
     @Override
-	public int deleteByPrimaryKey(Class<T> clazz,String id) throws InstantiationException, IllegalAccessException {
+	public<T extends IBaseDBPO, E extends BasicExample> int deleteByPrimaryKey(Class<T> clazz,String id) throws InstantiationException, IllegalAccessException {
 		return this.deleteByPrimaryKey(clazz, new String[] {id});
 	}
-	
+
 	@Override
-	public List<T> selectByExample(Class<T> clazz,E example) throws Exception{
+	public<T extends IBaseDBPO, E extends BasicExample> List<T> selectByExample(Class<T> clazz,E example) throws Exception{
 		T t=clazz.newInstance();
 		example.setPkName(t._getPKColumnName());
 		example.setTName(t._getTableName());
@@ -82,7 +81,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 		return list;
 	}
 	@Override
-	public T selectOneByExample(E example) throws Exception{
+	public<T extends IBaseDBPO, E extends BasicExample> T selectOneByExample(E example) throws Exception{
 		List<Map> mapL=   basicMapper.selectByExample(example);
 		List<T> list=new ArrayList<>();
 		for(Map map:mapL) {
@@ -93,7 +92,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 	}
 
 	@Override
-	public List<T> selectByExample(E example) throws Exception{
+	public<T extends IBaseDBPO, E extends BasicExample> List<T> selectByExample(E example) throws Exception{
 		List<Map> mapL=   basicMapper.selectByExample(example);
 		List<T> list=new ArrayList<>();
 		for(Map map:mapL) {
@@ -104,7 +103,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 	}
 
 	@Override
-	public List selectJoint(E example) throws Exception{
+	public <T extends IBaseDBPO, E extends BasicExample>List selectJoint(E example) throws Exception{
 		List<Map> mapL=   basicMapper.selectJoint(example);
 /*		Set<String> set0=null;
 		if(mapL.size()>0){
@@ -123,7 +122,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 
 
 	@Override
-	public T selectByPrimaryKey(Class<T> clazz,String id) throws Exception{
+	public <T extends IBaseDBPO, E extends BasicExample> T selectByPrimaryKey(Class<T> clazz,String id) throws Exception{
 		List<T> list =this.selectByPrimaryKey(clazz, new String[] {id});
 		if(list.size()>0) {
 			return list.get(0);
@@ -132,7 +131,13 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 	}
 
 	@Override
-	public List<T> selectByPrimaryKey(Class<T> clazz,List<String> ids) throws Exception{
+	public <F extends IBaseDBPO> F selectByPrimaryKey(Class<F> clazz, Integer ids) throws Exception {
+		Object a = new Object();
+		return (F) a;
+	}
+
+	@Override
+	public <T extends IBaseDBPO, E extends BasicExample>List<T> selectByPrimaryKey(Class<T> clazz,List<String> ids) throws Exception{
 		List<T> list =this.selectByPrimaryKey(clazz, ids.toArray(new String[ids.size()]));
 		if(list.size()>0) {
 			return list;
@@ -141,7 +146,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 	}
 
 	@Override
-	public List<T> selectByPrimaryKey(Class<T> clazz,String[] ids) throws Exception{
+	public <T extends IBaseDBPO, E extends BasicExample>List<T> selectByPrimaryKey(Class<T> clazz,String[] ids) throws Exception{
 		if(ids==null||ids.length<=0)return new ArrayList<>();
 		T t=clazz.newInstance();
 		List<Map> mapL=  basicMapper.selectByPrimaryKey(ids,t._getPKColumnName(),t._getTableName());
@@ -153,20 +158,20 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 		return list;
 	}
 	@Override
-	public int updateByExample(T record, E example) {
+	public  <T extends IBaseDBPO, E extends BasicExample> int updateByExample(T record, E example) {
 		return this.updateByExample(record, example,false);
 	}
 
 	@Override
-	public int updateByExample(T record, E example,boolean selective) {
+	public <T extends IBaseDBPO, E extends BasicExample> int updateByExample(T record, E example,boolean selective) {
 		Map<String,Object> map= new HashMap<>();
 		map.put("_tableName", record._getTableName());
-		String[] fieldNames = this.getFieldName(record);	
+		String[] fieldNames = this.getFieldName(record);
 		Map<String, Object> idmap = new HashMap<>();
 		for (String key:fieldNames) {
 			if(key.equals(record._getPKColumnName()))continue;
 			Object value = new Object[fieldNames.length];
-			value = this.getFieldValueByName(key, record);			
+			value = this.getFieldValueByName(key, record);
 			if(selective&&value==null)continue;
 			idmap.put(RegexUtils.humpToLine(key) , value);
 		}
@@ -174,9 +179,9 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 		map.put("example", example);
 		return basicMapper.updateByExample(map);
 	}
-	
+
 	@Override
-	public int insertOne(T record) {
+	public <T extends IBaseDBPO, E extends BasicExample> int insertOne(T record) {
 		List<T> list=new ArrayList<>();
 		list.add(record);
 		return insertBatch(list);
@@ -184,7 +189,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 
 
 	@Override
-	public int insertBatch(List<T> list) {
+	public <T extends IBaseDBPO, E extends BasicExample> int insertBatch(List<T> list) {
 		if (list == null || list.size() == 0) {
 			return 0;
 		}
@@ -228,7 +233,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 
 	@Transactional
 	@Override
-	public int updateBatch(List<T> list,boolean selective) {
+	public <T extends IBaseDBPO, E extends BasicExample> int updateBatch(List<T> list,boolean selective) {
 		if (list == null || list.size() == 0) {
 			return 0;
 		}
@@ -262,16 +267,16 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 	}
 
 	@Override
-	public int updateBatch(List<T> list) {
+	public <T extends IBaseDBPO, E extends BasicExample> int updateBatch(List<T> list) {
 		return  this.updateBatch(list,false);
 	}
-	
+
 	@Override
-	public int updateOne(T t) {
+	public <T extends IBaseDBPO, E extends BasicExample> int updateOne(T t) {
 		return  this.updateOne(t,false);
 	}
 	@Override
-	public int updateOne(T t,boolean selective) {
+	public <T extends IBaseDBPO, E extends BasicExample> int updateOne(T t,boolean selective) {
 		List<T> list=new ArrayList<>();
 		list.add(t);
 		return  this.updateBatch(list,selective);
@@ -289,9 +294,9 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
         map.put("fieldNames", fieldNames);
         map.put("fieldValues", value);
 		return map;
-		
+
 	}
-	
+
 	@Override
 	public Object getFieldValueByName(String fieldName, Object o) {
 		try {
@@ -328,7 +333,7 @@ public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> imple
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> getFieldMapValues(List<T> list,boolean selective) {
+	public <T extends IBaseDBPO, E extends BasicExample> Map<String, Object> getFieldMapValues(List<T> list,boolean selective) {
 		Map<String,  Object> fmap = new HashMap<>();
 		
 		String[] fieldNames = this.getFieldName(list.get(0));

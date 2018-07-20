@@ -142,6 +142,15 @@ public class ObjectMapUtils {
         } else if(Double.class.getName().equals(fieldTypeClass.getName())
                 || double.class.getName().equals(fieldTypeClass.getName())) {
             retVal = Double.parseDouble(value.toString());
+        }else if(Byte.class.getName().equals(fieldTypeClass.getName())
+                || byte.class.getName().equals(fieldTypeClass.getName())) {
+            retVal = Byte.parseByte(value.toString());
+        }else if(Short.class.getName().equals(fieldTypeClass.getName())
+                || short.class.getName().equals(fieldTypeClass.getName())) {
+            retVal = Short.parseShort(value.toString());
+        }else if(Boolean.class.getName().equals(fieldTypeClass.getName())
+                || boolean.class.getName().equals(fieldTypeClass.getName())) {
+            retVal = Boolean.parseBoolean(value.toString());
         } else {
             retVal = String.valueOf(value);
         }

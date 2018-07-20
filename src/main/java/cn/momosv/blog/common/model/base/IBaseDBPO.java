@@ -8,18 +8,24 @@ import java.io.Serializable;
  * @dateTime 2018/1/5 9:56
  * @version
  */
-public  abstract class IBaseDBPO implements Serializable, Cloneable{
+public   class IBaseDBPO implements Serializable, Cloneable{
 
 	private static final long serialVersionUID = 1L;
 
-	abstract public  String _getTableName();
+	 public  String _getTableName(){
+	 	return "";
+	 }
 
 	 public String _getPKColumnName(){
 	 	return "id";
 	 };
 
-	abstract public Object _getPKValue();
+	 public Object _getPKValue(){
+	 	return null;
+	 };
 
-	abstract public void _setPKValue(Object var);
+	 public void _setPKValue(Object var){
+
+	 };
 
 }

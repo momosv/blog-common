@@ -7,39 +7,44 @@
  */
 package cn.momosv.blog.common.service;
 
+import cn.momosv.blog.common.model.base.BasicExample;
+import cn.momosv.blog.common.model.base.IBaseDBPO;
+
 import java.util.List;
 import java.util.Map;
 
 
 /**
  *
- * @param <T>
- * @param <E>
+ * @param
+ * @param
  */
-public interface BasicService<T ,E > {
+public interface BasicService {
 
-    int countByExample(E example);
+    <T extends IBaseDBPO,E extends BasicExample>int countByExample(E example);
 
-    int deleteByExample(E example);
+    <T extends IBaseDBPO,E extends BasicExample>int deleteByExample(E example);
 
-    int deleteByPrimaryKey(Class<T> clazz, String id) throws InstantiationException, IllegalAccessException;
+    <T extends IBaseDBPO,E extends BasicExample>int deleteByPrimaryKey(Class<T> clazz, String id) throws InstantiationException, IllegalAccessException;
 
     @Deprecated
-    List<T> selectByExample(Class<T> clazz, E example)throws Exception;
+    <T extends IBaseDBPO,E extends BasicExample> List<T> selectByExample(Class<T> clazz, E example)throws Exception;
 
-    T selectOneByExample(E example) throws Exception;
+    <T extends IBaseDBPO,E extends BasicExample>T selectOneByExample(E example) throws Exception;
 
-    List<T> selectByExample(E example) throws Exception;
+    <T extends IBaseDBPO,E extends BasicExample>List<T> selectByExample(E example) throws Exception;
 
-    List<T> selectJoint(E example) throws Exception;
+    <T extends IBaseDBPO,E extends BasicExample> List<T> selectJoint(E example) throws Exception;
 
-    T selectByPrimaryKey(Class<T> clazz, String ids)throws Exception;
+    <T extends IBaseDBPO,E extends BasicExample>T selectByPrimaryKey(Class<T> clazz, String ids)throws Exception;
 
-    List<T> selectByPrimaryKey(Class<T> clazz, String[] ids) throws Exception;
+    <F extends IBaseDBPO> F selectByPrimaryKey(Class<F> clazz, Integer ids)throws Exception;
 
-    List<T> selectByPrimaryKey(Class<T> clazz, List<String> ids) throws Exception;
+    <T extends IBaseDBPO,E extends BasicExample>List<T> selectByPrimaryKey(Class<T> clazz, String[] ids) throws Exception;
 
-    int updateByExample(T record, E example);
+    <T extends IBaseDBPO,E extends BasicExample>List<T> selectByPrimaryKey(Class<T> clazz, List<String> ids) throws Exception;
+
+    <T extends IBaseDBPO,E extends BasicExample>int updateByExample(T record, E example);
 
 	Object getFieldValueByName(String fieldName, Object o);
 
@@ -47,27 +52,27 @@ public interface BasicService<T ,E > {
 
 	Object[] getFieldValues(Object o);
 
-	public   int insertBatch(List<T> list);
+	<T extends IBaseDBPO,E extends BasicExample>  int insertBatch(List<T> list);
 
-	public  int updateBatch(List<T> list);
+    <T extends IBaseDBPO,E extends BasicExample>  int updateBatch(List<T> list);
 
-	Map<String, Object> getFieldMapValues(List<T> list, boolean selective);
+    <T extends IBaseDBPO,E extends BasicExample> Map<String, Object> getFieldMapValues(List<T> list, boolean selective);
 
-	int updateBatch(List<T> list, boolean selective);
+    <T extends IBaseDBPO,E extends BasicExample>int updateBatch(List<T> list, boolean selective);
 
-	List<T> findAll(Class<T> t) throws Exception ;
+    <T extends IBaseDBPO,E extends BasicExample>List<T> findAll(Class<T> t) throws Exception ;
 
-	int insertOne(T record);
+    <T extends IBaseDBPO,E extends BasicExample>int insertOne(T record);
 
-    int updateOne(T record);
+    <T extends IBaseDBPO,E extends BasicExample>int updateOne(T record);
 
-    public int updateOne(T t, boolean selective);
+   <T extends IBaseDBPO,E extends BasicExample>  int updateOne(T t, boolean selective);
 
-	int updateByExample(T record, E example, boolean selective);
+    <T extends IBaseDBPO,E extends BasicExample>int updateByExample(T record, E example, boolean selective);
 
-	int deleteByPrimaryKey(Class<T> clazz, List<String> id) throws InstantiationException, IllegalAccessException;
+    <T extends IBaseDBPO,E extends BasicExample>int deleteByPrimaryKey(Class<T> clazz, List<String> id) throws InstantiationException, IllegalAccessException;
 
-	int deleteByPrimaryKey(Class<T> clazz, String[] id) throws IllegalAccessException, InstantiationException;
+    <T extends IBaseDBPO,E extends BasicExample>int deleteByPrimaryKey(Class<T> clazz, String[] id) throws IllegalAccessException, InstantiationException;
 
 
 }

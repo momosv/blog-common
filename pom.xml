@@ -16,6 +16,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../blog-combine/pom.xml</relativePath>
 	</parent>
+	<dependencies>
+	<dependency>
+		<groupId>com.google.guava</groupId>
+		<artifactId>guava</artifactId>
+		<version>24.1-jre</version>
+	</dependency>
+	</dependencies>
 	<build>
 		<!-- 为jar包取名 -->
 		<finalName>blog-common</finalName>

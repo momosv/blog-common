@@ -10,10 +10,12 @@ package cn.momosv.blog.common.dao;
 
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public interface BasicMapper<T ,E> {
     /**
      * 
@@ -45,7 +47,7 @@ public interface BasicMapper<T ,E> {
 
     List<Map> selectJoint(@Param("example") E example);
 
-    List<Map> selectByPrimaryKey(@Param("pks") String[] pks, @Param("pkName") String pkName, @Param("tbName") String tbName);
+	List<Map> selectByPrimaryKey(@Param("pks") String[] pks, @Param("pkName") String pkName, @Param("tbName") String tbName);
 
 
     /*
