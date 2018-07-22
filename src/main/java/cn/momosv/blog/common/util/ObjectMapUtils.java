@@ -143,7 +143,7 @@ public class ObjectMapUtils {
                 || double.class.getName().equals(fieldTypeClass.getName())) {
             retVal = Double.parseDouble(value.toString());
         } else {
-            retVal = String.valueOf(value);
+            retVal = value;
         }
         return retVal;
     }

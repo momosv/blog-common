@@ -16,6 +16,7 @@ import cn.momosv.blog.common.dao.BasicMapper;
 import cn.momosv.blog.common.model.base.BasicExample;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class BasicServiceImpl<T extends IBaseDBPO, E extends BasicExample> implements BasicService<T, E> {
  
-
+	@Resource
 	private BasicMapper basicMapper;
 
 	public void setMapper(BasicMapper basicMapper){
