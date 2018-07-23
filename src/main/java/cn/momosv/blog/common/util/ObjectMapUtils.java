@@ -152,7 +152,7 @@ public class ObjectMapUtils {
                 || boolean.class.getName().equals(fieldTypeClass.getName())) {
             retVal = Boolean.parseBoolean(value.toString());
         } else {
-            retVal = String.valueOf(value);
+            retVal = value;
         }
         return retVal;
     }

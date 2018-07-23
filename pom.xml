@@ -17,11 +17,11 @@
 		<relativePath>../blog-combine/pom.xml</relativePath>
 	</parent>
 	<dependencies>
-	<dependency>
-		<groupId>com.google.guava</groupId>
-		<artifactId>guava</artifactId>
-		<version>24.1-jre</version>
-	</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>24.1-jre</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<!-- 为jar包取名 -->
